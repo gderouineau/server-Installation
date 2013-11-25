@@ -14,11 +14,11 @@ UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy mysql-server
 #UBUNTU_FRONTEND
 #Ce paramètre contrôle le type d'interface qu'utilisera l'installateur
 if [[ $? -eq 0 ]]
-then
-	echo -e "\033[32mInstallation reussie de mysql server\033[37m"
-	echo "MySQL => Username: root Password: $MYSQL_PASS" | tee ~/.serv.passwd
+    then
+	    echo -e "\033[32mInstallation reussie de mysql server\033[37m"
+	    echo "MySQL => Username: root Password: $MYSQL_PASS" | tee ~/.serv.passwd
 else
-	echo -e "\033[31mEchec de l'installation du serveur Mysql\033[37m"
-	exit 10
+	    echo -e "\033[31mEchec de l'installation du serveur Mysql\033[37m"
+	    exit 10
 fi
 

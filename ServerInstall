@@ -15,14 +15,14 @@ echo -e "\033[32m               Bienvenue dans l'installation de votre serveur\0
 echo ""
 # --- ENRENGISTREMENT DU NOM D'UTILISATEUR --- #
 while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
-        do
-                read -p '               TAPEZ UN NOM D UTILISATEUR: ' USER_NAME
-                echo "               VOTRE NOM D\'UTILISATEUR EST: $USER_NAME"
-                echo ""
-                read -p '               VOULEZ VOUS GARDER CE NOM? (YES , NO ) ': VERIF
-                
-                echo ""
-        done
+    do
+        read -p '               TAPEZ UN NOM D UTILISATEUR: ' USER_NAME
+        echo    "               VOTRE NOM D\'UTILISATEUR EST: $USER_NAME"
+        echo    ""
+        read -p '               VOULEZ VOUS GARDER CE NOM? (YES , NO ) ': VERIF
+
+        echo ""
+    done
 echo -e '\033[32m               --- votre d utilisateur est bien enrengistré ---\033[37m'
 VERIF='NO'
 # --- UTILISATEUR ENRENGISTE --- #
@@ -31,7 +31,7 @@ VERIF='NO'
 while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
     do
         read -p '               TAPEZ UN MAIL: ' MAIL
-        echo "               VOTRE MAIL EST: $MAIL"
+        echo    "               VOTRE MAIL EST: $MAIL"
         echo ""
         read -p '               VOULEZ VOUS GARDER CE MAIL? (YES , NO ) :' VERIF
         
@@ -44,40 +44,40 @@ VERIF='NO'
 # --- ENRENGISTREMENT DU MOT DE PASSE --- #
 
 while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
-        do
-                read -p '               TAPEZ VOTRE MOT DE PASSE: ' -s MDP
-                echo ""
-                read -p '               RETAPEZ VOTRE MOT DE PASSE: ' -s MDPVERIF
-                echo ""
-                if [ $MDP = $MDPVERIF ]
-                        then 
-                                VERIF='YES'
-                else
-                                echo ""
-                                echo -e '\033[31m               VOUS N AVEZ PAS TAPE LE MEME MOT DE PASSE\033[37m'
-                fi
-                echo ""
-        done
+    do
+        read -p '               TAPEZ VOTRE MOT DE PASSE: ' -s MDP
+        echo ""
+        read -p '               RETAPEZ VOTRE MOT DE PASSE: ' -s MDPVERIF
+        echo ""
+        if [ $MDP = $MDPVERIF ]
+            then
+                VERIF='YES'
+        else
+            echo ""
+            echo -e '\033[31m               VOUS N AVEZ PAS TAPE LE MEME MOT DE PASSE\033[37m'
+        fi
+        echo ""
+    done
 echo -e '\033[32m               --- votre mot de passe est bien enrengistré ---\033[37m'
 VERIF="NO"
 
 # --- ENRENGISTREMENT DU MOT DE PASSE ROOT--- #
 
 while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
-        do
-                read -p '               TAPEZ VOTRE MOT DE PASSE ROOT: ' -s MDPROOT
-                echo ""
-                read -p '               RETAPEZ VOTRE MOT DE PASSE ROOT: ' -s MDPROOTVERIF
-                echo ""
-                if [ $MDPROOT = $MDPROOTVERIF ]
-                        then 
-                                VERIF='YES'
-                else
-                                echo ""
-                                echo -e '\033[31m               VOUS N AVEZ PAS TAPE LE MEME MOT DE PASSE\033[37m'
-                fi
-                echo ""
-        done
+    do
+        read -p '               TAPEZ VOTRE MOT DE PASSE ROOT: ' -s MDPROOT
+        echo ""
+        read -p '               RETAPEZ VOTRE MOT DE PASSE ROOT: ' -s MDPROOTVERIF
+        echo ""
+        if [ $MDPROOT = $MDPROOTVERIF ]
+            then
+                VERIF='YES'
+        else
+            echo ""
+            echo -e '\033[31m               VOUS N AVEZ PAS TAPE LE MEME MOT DE PASSE\033[37m'
+        fi
+        echo ""
+    done
 echo -e '\033[32m               --- votre mot de passe est bien enrengistré ---\033[37m'
 VERIF="NO"
 
@@ -96,41 +96,41 @@ installBool='No'
 VERIFBIS='NO'
 
 for ((i=0;i<${#nomInstall[*]};i++));
-        do
-                while [ $VERIF = 'NO' ]&&[ $VERIFBIS = "NO" ]
-                        do
-                                echo ""
-                                read -p "               Voulez vous installer ${nomInstall[$i]} Yes, No : " installBool
-                                if [ $installBool = 'yes' ]||[ $installBool = 'YES' ]||[ $installBool = 'Yes' ]||[ $installBool = 'y' ]
-                                        then
-                                                echo ""
-                                                read -p "               Vous avez choisi d'installer ${nomInstall[$i]} voulez vous continuer? (Yes, No) " VERIF
-                                                if [ $VERIF = 'yes' ]||[ $VERIF = 'YES' ]||[ $VERIF = 'Yes' ]||[ $VERIF = 'y' ]
-                                                        then
-                                                                declare valueInstall[$i]='1'
-                                                                echo "               ${nomInstall[$i]} sera installé"
-                                                fi
-                                fi
-                                if [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
-                                        then
-                                                read -p "               Vous avez choisi d'annuler l'installation de ${nomInstall[$i]} est vous sûr ? (YES, NO ) " VERIFBIS
-                                fi
-                        done
-                VERIF='NO'
-                VERIFBIS='NO'
-        done
+    do
+        while [ $VERIF = 'NO' ] && [ $VERIFBIS = "NO" ]
+            do
+                echo ""
+                read -p "               Voulez vous installer ${nomInstall[$i]} Yes, No : " installBool
+                if [ $installBool = 'yes' ]||[ $installBool = 'YES' ]||[ $installBool = 'Yes' ]||[ $installBool = 'y' ]
+                    then
+                        echo ""
+                        read -p "               Vous avez choisi d'installer ${nomInstall[$i]} voulez vous continuer? (Yes, No) " VERIF
+                        if [ $VERIF = 'yes' ]||[ $VERIF = 'YES' ]||[ $VERIF = 'Yes' ]||[ $VERIF = 'y' ]
+                            then
+                                declare valueInstall[$i]='1'
+                                echo "               ${nomInstall[$i]} sera installé"
+                        fi
+                fi
+                if [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
+                    then
+                        read -p "               Vous avez choisi d'annuler l'installation de ${nomInstall[$i]} est vous sûr ? (YES, NO ) " VERIFBIS
+                fi
+            done
+        VERIF='NO'
+        VERIFBIS='NO'
+    done
  # --- FIN DE VERIFICATION DES PROGRAMMES A INSTALLER --- #
 
  # --- INSTALLATION DES PROGRAMMES --- #
 
 for ((k=0;k<${#nomInstall[*]};k++));
-        do
+    do
 
-        	if [ ${valueInstall[$k]} = '1' ]
-				then
-					CMD="./"
-					CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL"
-					$CMD
-			fi
-        done
+        if [ ${valueInstall[$k]} = '1' ]
+            then
+                CMD="./"
+                CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL"
+                $CMD
+        fi
+    done
 

@@ -3,7 +3,7 @@
 #-----------Installation de php5--------#
 apt-get install -qqy libapache2-mod-php5 php5-mysql php5-gd php-apc php5-intl
 if [ $? -eq 0 ]
-then
+    then
         a2enmod php5
         mkdir /srv/www
         echo "<? phpinfo() ?>" > /srv/www/index.php

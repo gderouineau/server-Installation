@@ -2,7 +2,7 @@
 #------------ INSTALLATION DE APACHE2 ------------#
 apt-get install -qqqqy  apache2 apache2-doc
 if [[ $? -eq 0 ]]
-then
+    then
         echo -e "\033[32mInstallation reussie du serveur apache2 et de apache2-doc\033[37m"
         #/etc/init.d/apache2 restart
         echo -e "\033[32mMise en place de l'utilisateur webadmin\033[37m"
@@ -23,8 +23,9 @@ then
         sed -i "s/\/var\/www/\/srv\/www/g" /etc/apache2/sites-available/default
         sed -i "s/None/All/g" /etc/apache2/sites-available/default
         /etc/init.d/apache2 restart
-if [[ $? -eq 0 ]]
-    then exit 0
+        if [[ $? -eq 0 ]]
+            then
+                exit 0
         else
                 echo -e "\033[31mEchec du redemarrage du serveur apache2\033[37m"
                 exit 20
