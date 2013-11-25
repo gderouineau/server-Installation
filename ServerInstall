@@ -135,3 +135,9 @@ for ((k=0;k<${#nomInstall[*]};k++));
         fi
     done
 
+echo " --- Mise à jour du firewall --- "
+
+apt-get -qqy install iptables
+cp file/firewall /etc/init.d/
+update-rc.d firewall defaults
+
