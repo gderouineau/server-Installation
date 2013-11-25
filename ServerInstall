@@ -9,6 +9,7 @@ MDPROOTVERIF='MOTDEPASSEVERIF'
 VERIF='NO'
 MAIL='moi'
 CMD="CMD"
+DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 echo ""
 echo ""
 echo -e "\033[32m               Bienvenue dans l'installation de votre serveur\033[37m"
@@ -128,8 +129,8 @@ for ((k=0;k<${#nomInstall[*]};k++));
 
         if [ ${valueInstall[$k]} = '1' ]
             then
-                CMD="./"
-                CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL"
+                CMD="./file/"
+                CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL $DIRECTORYEXECUTION"
                 $CMD
         fi
     done
