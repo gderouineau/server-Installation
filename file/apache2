@@ -1,0 +1,36 @@
+#!/bin/bash
+#------------ INSTALLATION DE APACHE2 ------------#
+apt-get install -qqqqy  apache2 apache2-doc
+if [[ $? -eq 0 ]]
+then
+        echo -e "\033[32mInstallation reussie du serveur apache2 et de apache2-doc\033[37m"
+        #/etc/init.d/apache2 restart
+        echo -e "\033[32mMise en place de l'utilisateur webadmin\033[37m"
+        mkdir /srv/www
+        mkdir /var/www
+        sudo adduser www-data
+        sudo chown -Rf www-data:www-data /var/www
+        sudo chown -Rf www-data:www-data /srv/www
+        sudo find /var/www -type d -exec chmod 750 {} \;
+        sudo find /var/www -type f -exec chmod 640 {} \;
+        sudo find /srv/www -type d -exec chmod 750 {} \;
+        sudo find /srv/www -type f -exec chmod 640 {} \;
+        sudo chmod -R 644 /var/www
+        sudo chmod -R 644 /srv/www
+        sudo chmod a+X /var/www
+        sudo chmod a+X /srv/www
+        echo -e "\033[32mMise à jour du Virtual Host\033[37m"
+        sed -i "s/\/var\/www/\/srv\/www/g" /etc/apache2/sites-available/default
+        sed -i "s/None/All/g" /etc/apache2/sites-available/default
+        /etc/init.d/apache2 restart
+if [[ $? -eq 0 ]]
+    then exit 0
+        else
+                echo -e "\033[31mEchec du redemarrage du serveur apache2\033[37m"
+                exit 20
+        fi
+else
+        echo -e "\033[31mEchec de l'installation apache2 et de apache2-doc\033[37m"
+        exit 10
+fi
+

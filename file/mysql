@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#-----------Installation du serveur mysql--------#
+
+MYSQL_PASS=$3
+
+cat << MYSQL_PRESEED | debconf-set-selections
+mysql-server-5.5 mysql-server/root_password password $MYSQL_PASS
+mysql-server-5.5 mysql-server/root_password_again password $MYSQL_PASS
+mysql-server-5.5 mysql-server/start_on_boot boolean true
+MYSQL_PRESEED
+
+UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy mysql-server
+#UBUNTU_FRONTEND
+#Ce paramètre contrôle le type d'interface qu'utilisera l'installateur
+if [[ $? -eq 0 ]]
+then
+	echo -e "\033[32mInstallation reussie de mysql server\033[37m"
+	echo "MySQL => Username: root Password: $MYSQL_PASS" | tee ~/.serv.passwd
+else
+	echo -e "\033[31mEchec de l'installation du serveur Mysql\033[37m"
+	exit 10
+fi
+
