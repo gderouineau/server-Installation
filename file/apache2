@@ -4,8 +4,7 @@ MDP=$2
 admin=$4
 server=$6
 alias='www.'$server
-rootdirectory='\/srv\/www'
-DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
+
 mkdir /srv/pass
 htpasswd -cbs /srv/pass/phpmyadmin.passwd $USERNAME $MDP
 #------------ INSTALLATION DE APACHE2 ------------#
@@ -14,7 +13,8 @@ if [[ $? -eq 0 ]]
     then
         echo -e "\033[32mInstallation reussie du serveur apache2 et de apache2-doc\033[37m"
         #/etc/init.d/apache2 restart
-        echo -e "\033[32mMise en place de l'utilisateur webadmin\033[37m"
+        rootdirectory='\/srv\/www'
+        DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
         mkdir /srv/www
         mkdir /var/www
         sudo adduser www-data
