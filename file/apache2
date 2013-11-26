@@ -20,7 +20,7 @@ if [[ $? -eq 0 ]]
         sudo chmod a+X /var/www
         sudo chmod a+X /srv/www
         echo -e "\033[32mMise à jour du Virtual Host\033[37m"
-        sed -i "s/\/var\/www/\/srv\/www/g" /etc/apache2/sites-available/default
+        sed -i "s/\/var\/www/\/srv\/www\/web/g" /etc/apache2/sites-available/default
         sed -i "s/None/All/g" /etc/apache2/sites-available/default
         /etc/init.d/apache2 restart
         if [[ $? -eq 0 ]]

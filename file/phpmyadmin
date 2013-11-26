@@ -25,6 +25,8 @@ UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy phpmyadmin
 if [[ $? -eq 0 ]]
     then
 	    echo -e "\033[32mInstallation reussie de phpmyadmin\033[37m"
+	    ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf.d/phpmyadmin.conf
+	    ln -s /usr/share/phpmyadmin /srv/www/web/phpmyadmin
 else
 	    echo -e "\033[31mEchec de l'installation de mysql\033[37m"
 	    exit 10

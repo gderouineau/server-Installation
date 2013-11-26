@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIRECTORYEXECUTION=$5
+DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 PROFTPD_MYSQL_PASS=$3
 USER=$1
 MDP=$2
@@ -17,15 +17,18 @@ then
 	mkdir -p /srv/ssl/proftpd/private
 	groupadd ftpUser
 	apt-get install -qqy whois
-	MDPCRYPT=mkpasswd $MDP
-	useradd --password $MDPCRYPT --groups ftpUser $USER
+	MDPCRYPT=$(mkpasswd $MDP)
+
+	USERADD="useradd --password $MDPCRYPT --groups ftpUser $USER"
+
+	$USERADD
 else
 	echo -e "\033[31mEchec de l'installation de proftpd proftpd-mod-mysql\033[37m"
 	exit 10
 fi
 
 
-cp "$DIRECTORYEXECUTION"/file/ftpfile/*.conf /etc/proftpd/
+cp "$DIRECTORYEXECUTION"/ftpfile/*.conf /etc/proftpd/
 if [ $? -eq 0 ]
 then
 	chmod 644 /etc/proftpd/*.conf

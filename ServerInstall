@@ -11,6 +11,8 @@ MAIL='moi'
 CMD="CMD"
 SERVER="server.com"
 DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
+#-- definition des droits sur le dossier
+chmod -R 770 file
 echo ""
 echo ""
 echo -e "\033[32m               Bienvenue dans l'installation de votre serveur\033[37m"
@@ -42,6 +44,20 @@ while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
 echo -e '\033[32m               --- votre email est bien enrengistré ---\033[37m'
 VERIF='NO'
 # --- MAIL ENRENGISTE --- #
+
+# --- ENRENGISTREMENT DU NOM DE SERVEUR --- #
+while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
+    do
+        read -p '               TAPEZ LE NOM DE SERVER (monsite.com): ' SERVER
+        echo    "               VOTRE NOM DE SERVEUR EST: $SERVER"
+        echo ""
+        read -p '               VOULEZ VOUS GARDER CE NOM DE SERVEUR? (YES , NO ) :' VERIF
+
+        echo ""
+    done
+echo -e '\033[32m               --- votre nom de serveur est bien enrengistré ---\033[37m'
+VERIF='NO'
+# --- SERVEUR ENRENGISTE --- #
 
 # --- ENRENGISTREMENT DU MOT DE PASSE --- #
 
@@ -131,7 +147,7 @@ for ((k=0;k<${#nomInstall[*]};k++));
         if [ ${valueInstall[$k]} = '1' ]
             then
                 CMD="./file/"
-                CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL $DIRECTORYEXECUTION"
+                CMD="sudo $CMD${nomInstall[$k]} $USERNAME $MDP $MDPROOT $MAIL $DIRECTORYEXECUTION $SERVER"
                 $CMD
         fi
     done
@@ -140,7 +156,15 @@ echo " --- Mise à jour du firewall --- "
 
 apt-get -qqy install iptables
 cp file/firewall /etc/init.d/
+chmod 770 /etc/init.d/firewall
+/etc/init.d/firewall
 update-rc.d firewall defaults
+
+echo ""
+echo " --- Redémarage de Apache 2 --- "
+echo ""
+echo ""
+
 
 echo    " -------------------------------------------------------------- "
 echo    "|                                                              |"
