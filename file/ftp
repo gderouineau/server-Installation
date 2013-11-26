@@ -22,6 +22,8 @@ then
 	USERADD="useradd --password $MDPCRYPT --groups ftpUser $USER"
 
 	$USERADD
+    CHOWN="chown -R $USER:$USER /srv"
+    $CHOWN
 else
 	echo -e "\033[31mEchec de l'installation de proftpd proftpd-mod-mysql\033[37m"
 	exit 10
