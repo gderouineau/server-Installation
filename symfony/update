@@ -1,0 +1,86 @@
+#!/bin/bash
+help=$1
+# ---- les variables ---- #
+# $saisie : projet choisi #
+# ----     fin       ---- #
+if [[ $help -eq '--help' ]||[ $help -eq '-h' ]]
+    then
+        echo "symfony update programm"
+        echo ""
+        echo " usage : "
+        echo "  ./symfony"
+        wait
+fi
+echo ""
+echo ""
+echo ""
+echo "*****************************************************************************"
+echo "*                                                                           *"
+echo "* Ce programme permet de mettre à jour votre projet symfony sur le serveur  *"
+echo "*                                                                           *"
+echo "*****************************************************************************"
+echo ""
+echo ""
+
+
+test -d /srv/www
+exist=$?
+saisie=""
+if [ $saisie = 'fin' ]||[ $saisie = 'f' ]||[ $saisie = "fi" ]
+    then
+        echo "vous avez demandé  à quitter le programme"
+
+
+elif [ $exist = 0 ]
+    then
+
+        cd /srv/www
+
+
+        echo "--------------------------------------------"
+        echo ""
+        echo "mise à jour du cache"
+        php app/console cache:clear
+        php app/console cache:clear --env=prod
+        echo ""
+
+        echo "--------------------------------------------"
+        echo ""
+        echo "mise à jour des droits"
+        chown -R www-data:www-data /srv/www
+        find /srv/www -type f -exec chmod 640 {} \;
+        find /srv/www -type d -exec chmod 770 {} \;
+        chmod -R 770 /srv/www
+        echo "les droits sur le dossier ont été mis à jour"
+        echo ""
+
+        echo "--------------------------------------------"
+        echo ""
+        echo "mise à jour des bases de données"
+        php app/console doctrine:schema:update --dump-sql
+        php app/console doctrine:schema:update --force
+        echo ""
+
+        echo "--------------------------------------------"
+        echo ""
+        echo "mise à jour des droits"
+        chown -R www-data:www-data /srv/www
+        find /srv/www -type f -exec chmod 640 {} \;
+        find /srv/www -type d -exec chmod 770 {} \;
+        chmod -R 770 /srv/www
+        echo "les droits sur le dossier ont été mis à jour"
+
+else
+        echo "vous n'avez pas de project symfony dans le dossier /srv/www"
+fi
+
+echo ""
+echo "--------------------------------------------"
+echo ""
+echo "Bonne journée"
+echo ""
+echo "*****************************************************************************"
+echo ""
+
+
+

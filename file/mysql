@@ -1,8 +1,17 @@
 #!/bin/bash
 
 #-----------Installation du serveur mysql--------#
-
+USERNAME=$1
+MDP=$2
 MYSQL_PASS=$3
+MAIL=$4
+DIR=$5
+SERVER=$6
+
+OIFS="$IFS"
+IFS='.'
+read -a DOMAIN <<< "${SERVER}"
+IFS="$OIFS"
 
 cat << MYSQL_PRESEED | debconf-set-selections
 mysql-server-5.5 mysql-server/root_password password $MYSQL_PASS
@@ -21,4 +30,30 @@ else
 	    echo -e "\033[31mEchec de l'installation du serveur Mysql\033[37m"
 	    exit 10
 fi
+
+echo "--- création du nouvel utilisateur et de la base de données ---"
+echo ""
+
+EXPECTED_ARGS=1
+E_BADARGS=65
+MYSQL=`which mysql`
+Pass=$(pwgen -s -c 20 1)
+
+Q1="CREATE DATABASE IF NOT EXISTS ${DOMAIN[0]}  ;"
+Q2="GRANT USAGE ON *.* TO '$USERNAME'@'localhost' IDENTIFIED BY '$MDP';"
+Q3="GRANT ALL PRIVILEGES ON ${DOMAIN[0]}.* TO '$USERNAME'@'localhost' IDENTIFIED BY '$MDP';"
+Q4="FLUSH PRIVILEGES;"
+SQL="${Q1}${Q2}${Q3}${Q4}"
+
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: $0 dbname dbuser dbpass"
+  exit $E_BADARGS
+fi
+
+$MYSQL -u root -p"$MYSQL_PASS" -e "$SQL"
+echo -e "\n\n ------ Votre base de données à bien été crée ------"
+echo -e "\n votre identifiant est : $USERNAME"
+echo -e "\n le nom de votre base de données est : ${DOMAIN[0]} "
+echo -e "\n votre mot de passe est : $MDP"
 
