@@ -9,6 +9,7 @@ MDPROOTVERIF='MOTDEPASSEVERIF'
 VERIF='NO'
 MAIL='moi'
 CMD="CMD"
+SERVER="server.com"
 DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 echo ""
 echo ""
@@ -17,8 +18,8 @@ echo ""
 # --- ENRENGISTREMENT DU NOM D'UTILISATEUR --- #
 while [ $VERIF = "NO" ]||[ $VERIF = 'No' ]||[ $VERIF = 'no' ]||[ $VERIF = 'n' ]
     do
-        read -p '               TAPEZ UN NOM D UTILISATEUR: ' USER_NAME
-        echo    "               VOTRE NOM D\'UTILISATEUR EST: $USER_NAME"
+        read -p '               TAPEZ UN NOM D UTILISATEUR: ' USERNAME
+        echo    "               VOTRE NOM D\'UTILISATEUR EST: $USERNAME"
         echo    ""
         read -p '               VOULEZ VOUS GARDER CE NOM? (YES , NO ) ': VERIF
 
@@ -141,3 +142,45 @@ apt-get -qqy install iptables
 cp file/firewall /etc/init.d/
 update-rc.d firewall defaults
 
+echo    " -------------------------------------------------------------- "
+echo    "|                                                              |"
+echo    "|                                                              |"
+echo    "| VOTRE SERVER APACHE PHP MYSQL FTP EST CRÉÉ                   |"
+echo    "|                                                              |"
+echo    "| LES PROGRAMME SUIVANTS ONT ÉTÉ INSTALLÉS :                   |"
+echo    "|                                                              |"
+echo    "|  -> apache2  apache2-doc                                     |"
+echo    "|  -> libapache2-mod-php5 php5-mysql php5-gd php-apc php5-intl |"
+echo    "|  -> mysql-server phpmyadmin                                  |"
+echo    "|  -> proftpd proftpd-mod-mysql                                |"
+echo    "|  -> iptables                                                 |"
+echo    "|                                                              |"
+echo    "| VOS IDENTIFIANTS SONT LES SUIVANTS :                         |"
+echo    "|                                                              |"
+echo    "|  -- MYSQL --                                                 |"
+echo    "|  accès complet :                                             |"
+echo    "|    identifiant : root                                        |"
+echo -e "|    mot de passe : $MDPROOT                                   |"
+echo    "|                                                              |"
+echo    "|  accès personalisé :                                         |"
+echo -e "|    nom de la bdd : $SERVER                                   |"
+echo -e "|    identifiant : id$SERVER                                   |"
+echo -e "|    mot de passe : $MDP                                       |"
+echo -e "|                                                              |"
+echo -e "|  -- FTP --                                                   |"
+echo    "|  accès root :                                                |"
+echo    "|    identifiant : root                                        |"
+echo -e "|    mot de passe : $MDPROOT                                   |"
+echo    "|    port :                                                    |"
+echo    "|                                                              |"
+echo    "|  accès personalisé :                                         |"
+echo -e "|    identifiant : $USERNAME                                   |"
+echo -e "|    mot de passe : $MDP                                       |"
+echo    "|    port : ...                                                |"
+echo    "|                                                              |"
+echo    "|  -- PHPMYADMIN --                                            |"
+echo    "|    identifiant : root                                        |"
+echo    "|    mot de passe : $MDPROOT                                   |"
+echo    "|                                                              |"
+echo    "|                                                              |"
+echo    " -------------------------------------------------------------- "

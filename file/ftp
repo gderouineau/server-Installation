@@ -2,6 +2,8 @@
 
 DIRECTORYEXECUTION=$5
 PROFTPD_MYSQL_PASS=$3
+USER=$1
+MDP=$2
 EMAIL=$4
 #-----------Installation de ftp--------#
 cat << PROFTPD_PRESEED | debconf-set-selections
@@ -13,27 +15,15 @@ if [ $? -eq 0 ]
 then
 	mkdir -p /srv/ssl/proftpd/certs
 	mkdir -p /srv/ssl/proftpd/private
+	groupadd ftpUser
+	apt-get install -qqy whois
+	MDPCRYPT=mkpasswd $MDP
+	useradd --password $MDPCRYPT --groups ftpUser $USER
 else
 	echo -e "\033[31mEchec de l'installation de proftpd proftpd-mod-mysql\033[37m"
 	exit 10
 fi
 
-echo "FR
-FRANCE
-PARIS
-$SERVERNAME - FTP/SSL/TLS
-$SERVERNAME - FTP/SSL/TLS
-$SERVERNAME
-$EMAIL
-" | openssl req -x509 -nodes -days 3650 -newkey rsa:1024 -keyout /srv/ssl/proftpd/private/proftpd.key -out /srv/ssl/proftpd/certs/proftpd.crt
-
-if [ $? -eq 0 ]
-then
-    mv /etc/proftpd/proftpd.conf /etc/proftpd/proftpd.conf.orig
-else 
-	echo -e "\033[31mEchec de l'obtention du certificat pour proftpd\033[37m"
-	exit 20
-fi
 
 cp "$DIRECTORYEXECUTION"/file/ftpfile/*.conf /etc/proftpd/
 if [ $? -eq 0 ]
