@@ -18,6 +18,8 @@ phpmyadmin	phpmyadmin/missing-db-package-error	select	abort
 phpmyadmin	phpmyadmin/setup-username	string	root
 
 phpmyadmin  phpmyadmin/reconfigure-webserver multiselect apache2
+
+phpmyadmin  phpmyadmin/dbconfig-install     boolean true
 PHPMYADMIN_PRESEED
 
 UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy phpmyadmin
