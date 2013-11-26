@@ -3,12 +3,13 @@ USERNAME=$1
 MDP=$2
 admin=$4
 server=$6
-alias='www.$6'
-rootdirectory='/srv/www'
+alias='www.'$server
+rootdirectory='\/srv\/www'
+DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 mkdir /srv/pass
 htpasswd -cbs /srv/pass/phpmyadmin.passwd $USERNAME $MDP
 #------------ INSTALLATION DE APACHE2 ------------#
-apt-get install -qqqqy  apache2 apache2-doc
+apt-get install -qqy  apache2 apache2-doc apache2-utils
 if [[ $? -eq 0 ]]
     then
         echo -e "\033[32mInstallation reussie du serveur apache2 et de apache2-doc\033[37m"
@@ -27,17 +28,21 @@ if [[ $? -eq 0 ]]
         sudo chmod -R 644 /srv/www
         sudo chmod a+X /var/www
         sudo chmod a+X /srv/www
-        cp apachefile/VHost /etc/apache2/sites-available/
+
+        cp "$DIRECTORYEXECUTION"/apachefile/VHost /etc/apache2/sites-available/
         echo -e "\033[32mMise à jour du Virtual Host\033[37m"
         mv /etc/apache2/sites-available/default /etc/apache2/sites-available/default.orig
-        cp apachefile/default /etc/apache2/sites-available/
+        cp "$DIRECTORYEXECUTION"/apachefile/default /etc/apache2/sites-available/
+
         sed -i 's/%admin%/'"$admin"'/' /etc/apache2/sites-available/VHost
         sed -i 's/%admin%/'"$admin"'/' /etc/apache2/sites-available/VHost
         sed -i 's/%admin%/'"$admin"'/' /etc/apache2/sites-available/VHost
         sed -i 's/%server%/'"$server"'/' /etc/apache2/sites-available/VHost
         sed -i 's/%alias%/'"$alias"'/' /etc/apache2/sites-available/VHost
         sed -i 's/%rootdirectory%/'"$rootdirectory"'/' /etc/apache2/sites-available/VHost
+
         a2ensite VHost
+
         if [[ $? -eq 0 ]]
             then
                 echo " vhost had been successfully created"
