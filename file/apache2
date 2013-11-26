@@ -19,9 +19,17 @@ if [[ $? -eq 0 ]]
         sudo chmod -R 644 /srv/www
         sudo chmod a+X /var/www
         sudo chmod a+X /srv/www
+        cp apachefile/VHost /etc/apache2/sites-available/
         echo -e "\033[32mMise à jour du Virtual Host\033[37m"
-        sed -i "s/\/var\/www/\/srv\/www\/web/g" /etc/apache2/sites-available/default
-        sed -i "s/None/All/g" /etc/apache2/sites-available/default
+        sed -i 's/%admin%/'"$admin"'/' /etc/apache2/sites-available/VHost
+        sed -i 's/%server%/'"$server"'/' /etc/apache2/sites-available/VHost
+        sed -i 's/%alias%/'"$alias"'/' /etc/apache2/sites-available/VHost
+        sed -i 's/%rootdirectory%/'"$rootdirectory"'/' /etc/apache2/sites-available/VHost
+        a2ensite VHost
+        if [[ $? -eq 0 ]]
+            then
+                echo " vhost had been successfully created"
+        fi
         /etc/init.d/apache2 restart
         if [[ $? -eq 0 ]]
             then

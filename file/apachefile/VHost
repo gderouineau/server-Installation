@@ -1,0 +1,36 @@
+<VirtualHost *:80>
+
+    ServerAdmin %admin%
+    ServerName %server%
+    ServerAlias %alias%
+
+    DocumentRoot %rootdirectory%
+
+    <Directory />
+        Options -Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from all
+    </Directory>
+
+    <Directory /phpmyadmin>
+        AuthType Basic
+        AuthName "access protected"
+        AuthUserFile /svv/pass/phpmyadmin.passwd
+        Require valid-user
+    </Directory>
+
+    AccessFileName .httpdoverride
+    <Files ~ "^\.ht">
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </Files>
+
+    ErrorLog /var/log/apache2/error.log
+
+    LogLevel warn
+
+    CustomLog /var/log/apache2/access.log combined
+
+</VirtualHost>
