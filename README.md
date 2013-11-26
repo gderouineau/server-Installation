@@ -5,7 +5,7 @@
 
 ## INSTRUCTION
 
-download the package from github https://github.com/gderouineau/server-Installation
+download the ziped package from github https://github.com/gderouineau/server-Installation
 
 transfert the package to your server
  $ scp packageName.zip user@ip:/some/path
