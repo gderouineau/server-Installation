@@ -5,7 +5,7 @@
 
 ## INSTRUCTION
 
-download the package serverInstall
+download the package server-Installation
 
 go the directory :
  $ cd /path/to/the/directory
@@ -14,13 +14,13 @@ download unzip :
  $ apt-get -qqy install unzip
 
 unzip the package :
- $ unzip serverInstall.zip
+ $ unzip server-Installation.zip
 
 go into the directory :
  $ cd serverInstall
 
 change the right of the package :
- $ sudo chmod -R 770 ../serverInstall
+ $ sudo chmod -R 770 ../server-Installation
 
 run the programm :
  $ sudo ./ServerInstall
