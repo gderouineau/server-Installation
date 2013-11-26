@@ -45,11 +45,6 @@ Q3="GRANT ALL PRIVILEGES ON ${DOMAIN[0]}.* TO '$USERNAME'@'localhost' IDENTIFIED
 Q4="FLUSH PRIVILEGES;"
 SQL="${Q1}${Q2}${Q3}${Q4}"
 
-if [ $# -ne $EXPECTED_ARGS ]
-then
-  echo "Usage: $0 dbname dbuser dbpass"
-  exit $E_BADARGS
-fi
 
 $MYSQL -u root -p"$MYSQL_PASS" -e "$SQL"
 echo -e "\n\n ------ Votre base de données à bien été crée ------"
