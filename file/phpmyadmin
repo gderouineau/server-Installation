@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#-----------Installation de phpmyadmin--------#
+
+MYSQL_PASS=$3
+
+cat << PHPMYADMIN_PRESEED | debconf-set-selections
+phpmyadmin	phpmyadmin/app-password-confirm	password	$MYSQL_PASS
+phpmyadmin	phpmyadmin/mysql/admin-pass	password	$MYSQL_PASS
+phpmyadmin	phpmyadmin/password-confirm	password	$MYSQL_PASS
+phpmyadmin	phpmyadmin/setup-password	password    $MYSQL_PASS
+
+phpmyadmin	phpmyadmin/mysql/app-pass	password $MYSQL_PASS
+phpmyadmin	phpmyadmin/remove-error	select	abort
+phpmyadmin	phpmyadmin/internal/reconfiguring	boolean	true
+phpmyadmin	phpmyadmin/missing-db-package-error	select	abort
+phpmyadmin	phpmyadmin/setup-username	string	root
+PHPMYADMIN_PRESEED
+
+UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy phpmyadmin
+#UBUNTU_FRONTEND
+#Ce paramètre contrôle le type d'interface qu'utilisera l'installateur
+if [[ $? -eq 0 ]]
+    then
+	    echo -e "\033[32mInstallation reussie de phpmyadmin\033[37m"
+else
+	    echo -e "\033[31mEchec de l'installation de mysql\033[37m"
+	    exit 10
+fi
+

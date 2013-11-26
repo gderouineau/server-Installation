@@ -87,7 +87,7 @@ VERIF="NO"
 
 # --- CREATION DE DEUX TABLEAUX CONTENANT LES PROGRAMMES A INSTALLER ---#
 
-nomInstall=('apache2' 'php' 'mysql' 'ftp' )
+nomInstall=('apache2' 'php' 'mysql' 'ftp' 'phpmyadmin' )
 valueInstall=('0' '0' '0' '0')
 
 
