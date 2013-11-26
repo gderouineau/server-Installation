@@ -1,7 +1,8 @@
 #!/bin/bash
 
 #-----------Installation de phpmyadmin--------#
-
+USERNAME=$1
+MDP=$2
 MYSQL_PASS=$3
 
 cat << PHPMYADMIN_PRESEED | debconf-set-selections

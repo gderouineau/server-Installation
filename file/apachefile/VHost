@@ -16,7 +16,7 @@
     <Directory /phpmyadmin>
         AuthType Basic
         AuthName "access protected"
-        AuthUserFile /svv/pass/phpmyadmin.passwd
+        AuthUserFile /srv/pass/phpmyadmin.passwd
         Require valid-user
     </Directory>
 

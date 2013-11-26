@@ -1,8 +1,12 @@
 #!/bin/bash
+USERNAME=$1
+MDP=$2
 admin=$4
 server=$6
 alias='www.$6'
 rootdirectory='/srv/www'
+mkdir /srv/pass
+htpasswd -cbs /srv/pass/phpmyadmin.passwd $USERNAME $MDP
 #------------ INSTALLATION DE APACHE2 ------------#
 apt-get install -qqqqy  apache2 apache2-doc
 if [[ $? -eq 0 ]]
