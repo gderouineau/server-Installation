@@ -1,4 +1,8 @@
 #!/bin/bash
+admin=$4
+server=$6
+alias='www.$6'
+rootdirectory='/srv/www'
 #------------ INSTALLATION DE APACHE2 ------------#
 apt-get install -qqqqy  apache2 apache2-doc
 if [[ $? -eq 0 ]]
