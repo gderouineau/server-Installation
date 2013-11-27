@@ -5,8 +5,7 @@ admin=$4
 server=$6
 alias='www.'$server
 
-mkdir /srv/pass
-htpasswd -cbs /srv/pass/phpmyadmin.passwd $USERNAME $MDP
+
 #------------ INSTALLATION DE APACHE2 ------------#
 apt-get install -qqy  apache2 apache2-doc apache2-utils
 if [[ $? -eq 0 ]]
@@ -14,6 +13,10 @@ if [[ $? -eq 0 ]]
         echo -e "\033[32mInstallation reussie du serveur apache2 et de apache2-doc\033[37m"
         #/etc/init.d/apache2 restart
         rootdirectory='\/srv\/www'
+
+        mkdir /srv/pass
+        htpasswd -cbs /srv/pass/phpmyadmin.passwd $USERNAME $MDP
+
         DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
         mkdir /srv/www
         mkdir /var/www

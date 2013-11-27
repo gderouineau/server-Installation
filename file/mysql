@@ -25,7 +25,7 @@ UBUNTU_FRONTEND='noninteractive' apt-get install -f -qqy mysql-server
 if [[ $? -eq 0 ]]
     then
 	    echo -e "\033[32mInstallation reussie de mysql server\033[37m"
-	    echo "MySQL => Username: root Password: $MYSQL_PASS" | tee ~/.serv.passwd
+	    #echo "MySQL => Username: root Password: $MYSQL_PASS" | tee ~/.serv.passwd
 else
 	    echo -e "\033[31mEchec de l'installation du serveur Mysql\033[37m"
 	    exit 10
@@ -34,10 +34,10 @@ fi
 echo "--- création du nouvel utilisateur et de la base de données ---"
 echo ""
 
-EXPECTED_ARGS=1
+EXPECTED_ARGS=6
 E_BADARGS=65
 MYSQL=`which mysql`
-Pass=$(pwgen -s -c 20 1)
+#Pass=$(pwgen -s -c 20 1)
 
 Q1="CREATE DATABASE IF NOT EXISTS ${DOMAIN[0]}  ;"
 Q2="GRANT USAGE ON *.* TO '$USERNAME'@'localhost' IDENTIFIED BY '$MDP';"
@@ -47,8 +47,8 @@ SQL="${Q1}${Q2}${Q3}${Q4}"
 
 
 $MYSQL -u root -p"$MYSQL_PASS" -e "$SQL"
-echo -e "\n\n ------ Votre base de données à bien été crée ------"
-echo -e "\n votre identifiant est : $USERNAME"
-echo -e "\n le nom de votre base de données est : ${DOMAIN[0]} "
-echo -e "\n votre mot de passe est : $MDP"
+#echo -e "\n\n ------ Votre base de données à bien été crée ------"
+#echo -e "\n votre identifiant est : $USERNAME"
+#echo -e "\n le nom de votre base de données est : ${DOMAIN[0]} "
+#echo -e "\n votre mot de passe est : $MDP"
 
