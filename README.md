@@ -1,11 +1,13 @@
 
-
 ## README
 
 
 ## INSTRUCTION
 
 download the ziped package from github https://github.com/gderouineau/server-Installation
+
+on debian first install sudo
+ $ apt-get install sudo
 
 transfert the package to your server
  $ scp packageName.zip user@ip:/some/path
