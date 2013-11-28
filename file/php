@@ -5,12 +5,16 @@ apt-get install -qqy libapache2-mod-php5 php5-mysql php5-gd php-apc php5-intl
 if [ $? -eq 0 ]
     then
         a2enmod php5
+
         mkdir /srv/www
-        
+
+        DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
+        sudo mv /etc/php5/cli/php.ini /etc/php5/cli.php.ini.orig
+        sudo cp "$DIRECTORYEXECUTION"/phpfile/php.ini /etc/php5/cli/
+
+
         sed --in-place -e "951a\ \nextension=apc.so\n" /etc/php5/cli/php.ini
         sed --in-place -e "957a\ \n[APC]\napc.enabled=1\n" /etc/php5/cli/php.ini
-        sed -i "s/date.timezone =/date.timezone = Europe/Paris/g" /etc/php5/cli/php.ini
-        sed -i "s/ short_open_tag;   Default Value: On/; short_open_tag;   Default Value: On/g" /etc/php5/cli/php.ini
         
         /etc/init.d/apache2 restart
         echo -e "\033[32mInstallation reussie de php5 et des composants supplémentaires\033[37m"

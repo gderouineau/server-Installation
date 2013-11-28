@@ -10,6 +10,14 @@ VERIF='NO'
 MAIL='moi'
 CMD="CMD"
 SERVER="server.com"
+apt-get install sudo
+if [[ $? -eq 0 ]]
+    then
+        echo "installation de sudo réussie"
+else
+        echo "echo de l'installation de sudo"
+        echo " run apt-get install sudo && sudo su"
+fi
 DIRECTORYEXECUTION=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 #-- definition des droits sur le dossier
 chmod -R 770 file

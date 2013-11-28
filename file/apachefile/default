@@ -5,18 +5,33 @@
         DocumentRoot /srv/www/
 
         <Directory />
-            Options Indexes FollowSymLinks MultiViews
+            Options -Indexes -FollowSymLinks MultiViews
             AllowOverride None
+            Order deny,all
+            allow from all
+        </Directory>
+
+        <Directory /srv/www/>
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride All
             Order allow,deny
             allow from all
         </Directory>
 
-        <Directory /phpmyadmin>
+        <Directory /srv/wwww/phpmyadmin>
             AuthType Basic
             AuthName "access protected"
+            AuthBasicProvider file
             AuthUserFile /srv/pass/phpmyadmin.passwd
             Require valid-user
         </Directory>
+
+        # Prevent read, access and download of .htaccess files
+        <Files ~ "^\.ht">
+            Order allow,deny
+            Deny from all
+            Satisfy all
+        </Files>
 
 
         ErrorLog ${APACHE_LOG_DIR}/error.log

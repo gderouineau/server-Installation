@@ -50,6 +50,15 @@ if [[ $? -eq 0 ]]
             then
                 echo " vhost had been successfully created"
         fi
+
+        sudo mv /etc/apache2/conf.d/security /etc/apache2/conf.d/security.orig
+        sudo cp "$DIRECTORYEXECUTION"/apachefile/security /etc/apache2/conf.d/
+        if [[ $? -eq  ]]
+            then
+                echo "apache security done"
+        fi
+
+
         /etc/init.d/apache2 restart
         if [[ $? -eq 0 ]]
             then

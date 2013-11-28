@@ -7,15 +7,23 @@
     DocumentRoot %rootdirectory%
 
     <Directory />
-        Options -Indexes FollowSymLinks MultiViews
+        Options -ExecCGI -Indexes -FollowSymLinks MultiViews
+        AllowOverride None
+        Order deny,allow
+        allow from all
+    </Directory>
+
+    <Directory /srv/www>
+        Options -ExecCGI Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
         allow from all
     </Directory>
 
-    <Directory /phpmyadmin>
+    <Directory /srv/www/phpmyadmin>
         AuthType Basic
         AuthName "access protected"
+        AuthUserFile file
         AuthUserFile /srv/pass/phpmyadmin.passwd
         Require valid-user
     </Directory>
