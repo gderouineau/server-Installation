@@ -31,6 +31,8 @@ if [[ $? -eq 0 ]]
         sudo chmod -R 644 /srv/www
         sudo chmod a+X /var/www
         sudo chmod a+X /srv/www
+        
+        echo "Hello World" > /srv/www/index.html
 
         cp "$DIRECTORYEXECUTION"/apachefile/VHost /etc/apache2/sites-available/
         echo -e "\033[32mMise à jour du Virtual Host\033[37m"
