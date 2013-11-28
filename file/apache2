@@ -53,7 +53,7 @@ if [[ $? -eq 0 ]]
 
         sudo mv /etc/apache2/conf.d/security /etc/apache2/conf.d/security.orig
         sudo cp "$DIRECTORYEXECUTION"/apachefile/security /etc/apache2/conf.d/
-        if [[ $? -eq  ]]
+        if [[ $? -eq 0 ]]
             then
                 echo "apache security done"
         fi
