@@ -10,14 +10,14 @@
         Options -ExecCGI -Indexes -FollowSymLinks MultiViews
         AllowOverride None
         Order deny,allow
-        allow from all
+        Allow from all
     </Directory>
 
     <Directory /srv/www>
-        Options -ExecCGI Indexes FollowSymLinks MultiViews
+        Options -ExecCGI Indexes +FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
-        allow from all
+        Allow from all
     </Directory>
 
     <Directory /srv/www/phpmyadmin>
